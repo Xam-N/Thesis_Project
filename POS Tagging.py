@@ -1,14 +1,32 @@
-from Data_Processing import dataRead
-
-import nltk
 import re
-#tokenise description so that i can look at each word
 
-#tag each word with a thingy\
+
+
+custom_tags = {
+  "unitCode": r"[A-Z]{4}[0-9]{4}",
+  "dash": r"-",
+  "unitYear": r"[0-9]000",
+  "level": r"level",
+  "bool": r"or|and|include",
+  "inequal": r"above",
+}
+
+sample = "COMP3100 - something else"
 
 def tagDescription(data):
-  words = nltk.word_tokenise(data)
+  words = data.split()
+  word_types = {}
   for word in words:
-    if word
-    if word 
+      matched = None
+      for type_label, pattern in custom_tags.items():
+          if re.match(pattern, word):
+              matched = type_label
+              break
+      word_types[word] = matched
+
+  for word, custom_type in word_types.items():
+    print(f"{word}: {custom_type}")
   
+  return word_types
+    
+tagDescription(sample)
