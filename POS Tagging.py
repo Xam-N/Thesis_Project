@@ -1,7 +1,5 @@
 import re
 
-
-
 custom_tags = {
   "unitCode": r"[A-Z]{4}[0-9]{4}",
   "dash": r"-",
@@ -12,6 +10,8 @@ custom_tags = {
 }
 
 sample = "COMP3100 - something else"
+sample2 = "COMP1000 - ENGG1000"
+sample3 = "3000 level and above"
 
 def tagDescription(data):
   words = data.split()
@@ -30,3 +30,5 @@ def tagDescription(data):
   return word_types
     
 tagDescription(sample)
+tagDescription(sample2)
+tagDescription(sample3)
