@@ -5,8 +5,9 @@ custom_tags = {
   "dash": r"-",
   "unitYear": r"[0-9]000",
   "level": r"level",
-  "bool": r"or|and|include",
+  "bool": r"or|and|include|,",
   "inequal": r"above",
+
 }
 
 sample = "COMP3100 - something else"
