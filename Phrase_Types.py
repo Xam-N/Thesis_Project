@@ -1,32 +1,25 @@
-sentence_types = {
-    "Boolean": r"unitCode+ [and|or|, unitCode]*",
-    "Credit_Point": r"[0-9]*+cp"
-    "Credit_Point": r"[0-9]+cp +(from +[A-Z]+[A-Z]+|at +[0-9]+ level or above|from +[A-Z]+ units at +[0-9]+ level or above|-)",
-    "Composite": r"(Credit_Point +BOOL +Boolean|Boolean +BOOL +Other|Credit_Point +BOOL +Other|Boolean +BOOL +Credit_Point +BOOL +Other)",
-    "Other": r"Admission to MRes|Admission to a special program|Admission requires permission of course director|Admission to Wuyagiba Study Hub Program 1"
+import re
+from POS_Tagging import sample, requirement_word_tag
+
+# Define requirement types and the corresponding patterns
+phraseTags = {
+    "Boolean": r"unitCode(\s+(bool|and|or)\s+unitCode)*",
+    "Credit_Point": r"creditPoints\s+unitYear\s+level(\s+(bool|inequal))*",
+    "Composite": r"(unitCode(\s+(bool|and|or)\s+unitCode)*)+(creditPoints\s+unitYear\s+level(\s+(bool|inequal))+)",
+    #"Other": r"",
 }
 
+def requirement_tag(description):
+    label = ""
+    requirement = requirement_word_tag(description)
+    temp = ""
+    for word_tag in requirement.values():
+        if word_tag is not None:
+            temp += word_tag + " "
+    for phrase_name, phrase_type in phraseTags.items():
+        if re.match(phrase_type, temp):
+            label += phrase_name
+    return label
 
-
-def phraseIdentifying(requirement):
-    
-    
-    
-    
-    if(requirement): 
-        # boolean
-        # 'unit' + 'bool' + 'unit'
-    elif():
-        # credit point
-        # xxcp from 'level' units
-        # xxcp from 'inequality' 'level'
-        # xxcp from 'subject' at 'level'
-        # xxcp from 'unit range'
-    elif():
-        # composite
-        # combination of other phrase types
-    elif():
-        # other
-        # special admission required etc.
-        # ignore everything that reaches here
-    
+for examples in sample.values():
+  print(requirement_tag(examples))
