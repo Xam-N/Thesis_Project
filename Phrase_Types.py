@@ -9,6 +9,7 @@ phraseTags = {
     #"Other": r"",
 }
 
+#returns the label of the requirement
 def requirement_tag(description):
     label = ""
     requirement = requirement_word_tag(description)

@@ -26,7 +26,7 @@ custom_tags = {
   "rbracket": r"\)",
 }
 
-
+#returns a tagged requirement given
 def requirement_word_tag(data):
   words = re.findall(r'\(|\)|\w+', data)
   word_types = {}
