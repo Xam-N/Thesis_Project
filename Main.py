@@ -1,12 +1,14 @@
-from Data_Processing import dataRead
-from POS_Tagging import sample, custom_tags, requirement_word_tag
-from Phrase_Types import phraseTags, requirement_tag
-from Graphing import createMatrix
+from Data_Processing import *
+from POS_Tagging import *
+from Phrase_Types import *
+from Graphing import *
 
-def main():
+def runner():
   unitRequirements_file = 'unitRequirements.csv'
   unitSessions_file = 'unitSessionOfferings.csv'
   data = dataRead(unitRequirements_file, unitSessions_file)
-  createMatrix(data)
-  
-  
+  matrix = createMatrix(data)
+  print("Hello" +matrix)
+
+
+print(runner())

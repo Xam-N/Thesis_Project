@@ -3,7 +3,7 @@ import re
 sample = {
   "sample 1": "COMP3100 - something else ",
   "sample 2": "COMP1000 - ENGG1000 ",
-  "sample 3":"3000 level and above ",
+  "sample 3":"COMP3100 and COMP1000",
   "sample 4":"COMP3100 or COMP1000 ",
   "sample 5":"20cp from 3000 level units ",
   "sample 6":"30cp at 1000 level or above ",
@@ -40,5 +40,5 @@ def requirement_word_tag(data):
   
   return word_types
 
-for sampleName ,sampleRequirement in sample.items():
-  print(requirement_word_tag(sampleRequirement))
+#for sampleName ,sampleRequirement in sample.items():
+ # print(requirement_word_tag(sampleRequirement))

@@ -22,5 +22,5 @@ def requirement_tag(description):
             label += phrase_name
     return label
 
-for examples in sample.values():
-  print(requirement_tag(examples))
+#for examples in sample.values():
+ # print(requirement_tag(examples))

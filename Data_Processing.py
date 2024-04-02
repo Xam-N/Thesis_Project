@@ -19,11 +19,13 @@ def dataRead(unitRequirements, unitSessions):
     merged_data['Session 1'] = merged_data['Teaching Period'] == 'Session 1'
     merged_data['Session 2'] = merged_data['Teaching Period'] == 'Session 2'
     merged_data.drop(columns=['Teaching Period'], inplace=True)
-
+    
+    merged_data.drop_duplicates(inplace=True)
+         
     return merged_data
 
 # Example usage:
-unitRequirements_file = 'unitRequirements.csv'
-unitSessions_file = 'unitSessionOfferings.csv'
-result = dataRead(unitRequirements_file, unitSessions_file)
-print(result)
+#unitRequirements_file = 'unitRequirements.csv'
+#unitSessions_file = 'unitSessionOfferings.csv'
+#result = dataRead(unitRequirements_file, unitSessions_file)
+#print(result)
