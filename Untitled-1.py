@@ -2,7 +2,13 @@
     
     
     
-    
+    for i in range(1,len(adj_matrix)-1):
+      print(adj_matrix[i][len(adj_matrix)-1])
+      adj_matrix[i][len(adj_matrix)-1] = 0
+      
+    for j in range(1,len(adj_matrix)-1):
+      adj_matrix[len(adj_matrix)-1][j] = 0
+
     
     
     
