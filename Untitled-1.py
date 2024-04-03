@@ -1,4 +1,34 @@
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    tempIndex = 1
+    
+    for index, row in merged_data.iterrows():
+        print(row['Academic Item'])
+        print(merged_data.iloc[tempIndex]['Academic Item'])
+        if row['Academic Item'] == merged_data.iloc[tempIndex]['Academic Item']:
+            if merged_data.loc[index]['Session 1'] == False and row['Session 1'] == True:
+                print("here")
+                merged_data.loc[index]['Session 1'] = True
+            if merged_data.loc[index]['Session 2'] == False and row['Session 2'] == True:
+                print("here")
+                merged_data.loc[index]['Session 2'] = True
+        else:
+            print("changing this")
+            tempIndex = index
+
+
 pass
   if requirementType == "Boolean":  # Use '==' for string comparison
     i = 0

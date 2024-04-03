@@ -21,11 +21,28 @@ def dataRead(unitRequirements, unitSessions):
     merged_data.drop(columns=['Teaching Period'], inplace=True)
     
     merged_data.drop_duplicates(inplace=True)
-         
+       
+    
+    grouped = merged_data.groupby(['Academic Item', 'Type.1', 'Description'])
+    
+    def merge_rows(group):
+        # Combine all rows within the group
+        merged_row = group.iloc[0]
+        # Update 'Session 1' and 'Session 2' columns with max value
+        merged_row['Session 1'] = group['Session 1'].max()
+        merged_row['Session 2'] = group['Session 2'].max()
+        return merged_row
+
+    merged_data = grouped.apply(merge_rows).reset_index(drop=True)
+    
+
+             
+    #if row['Academic Item'] == merged_data.iloc[tempIndex]['Academic Item'] and row['Type.1'] == merged_data.iloc[tempIndex]['Type.1'] and row['Description'] == merged_data.iloc[tempIndex]['Description']:           
+    
     return merged_data
 
 # Example usage:
-#unitRequirements_file = 'unitRequirements.csv'
-#unitSessions_file = 'unitSessionOfferings.csv'
-#result = dataRead(unitRequirements_file, unitSessions_file)
-#print(result)
+unitRequirements_file = 'unitRequirements.csv'
+unitSessions_file = 'unitSessionOfferings.csv'
+result = dataRead(unitRequirements_file, unitSessions_file)
+print(result)

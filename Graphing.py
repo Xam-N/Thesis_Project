@@ -1,6 +1,7 @@
 from POS_Tagging import sample, custom_tags, requirement_word_tag
 from Phrase_Types import phraseTags, requirement_tag
 import re
+import numpy as np
 
 def createMatrix(data):
     adjMatrix = []  
@@ -58,40 +59,52 @@ def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data):
   
 def addNode(adj_matrix: list, new_node):
 
-  # Check if the nodes of the edge exist in the node list
-  if not adj_matrix:
-    adj_matrix.append([new_node])
-    return adj_matrix
-  
-  if new_node in adj_matrix[0]:
-    print(new_node + "The node is already in the matrix")
-    return adj_matrix
+    # Check if the nodes of the edge exist in the node list
+    if not adj_matrix:
+      adj_matrix = np.array([['',new_node],[new_node,0]])
+      return adj_matrix
+
+    if new_node in adj_matrix[0]:
+        print(new_node + "The node is already in the matrix")
+        return adj_matrix
+
+    #adj_matrix[1][1] edge weights are at this
+    adj_matrix[0].append(new_node) # adds to the column unit list
+    adj_matrix.append(new_node) #adds to the row unit list
+    
+    for i in range(1,len(adj_matrix)-1):
+      adj_matrix[i][len(adj_matrix)-1] = 0
       
-  # Add new column and row to the matrix
-  for row in adj_matrix:
-      row.append(0)
-      adj_matrix[0].append(1* len(adj_matrix[0]))
-    
-    # Populate the node edges as 0
-  adj_matrix[0].append(new_node)
-  for i in range(1, len(adj_matrix)):
-      adj_matrix[i][-1] = 0
-    
-  return adj_matrix
+    for j in range(1,len(adj_matrix)-1):
+      adj_matrix[len(adj_matrix)-1][j] = 0
+
+    # Add a new row for the new node
+    adj_matrix.append([0] * len(adj_matrix[0]))
+    adj_matrix[-1][0] = new_node
+
+    return adj_matrix
  
 def addEdge(adj_matrix:list, sourceNode, endNode, weight):
      
     # Check if the nodes of the edge exist in the node list
-  if sourceNode not in adj_matrix[0] or endNode not in adj_matrix[0]:
-    print("Error: One or both nodes of the edge do not exist.")
-    return adj_matrix
+  if sourceNode not in adj_matrix[0]:
+    addNode(adj_matrix,sourceNode)
+  
+  if endNode not in adj_matrix[0]:
+    addNode(adj_matrix,endNode)
     
     # Get the indices of the source and destination nodes
-  src_index = adj_matrix[0].index(sourceNode)
-  dest_index = adj_matrix[0].index(endNode)
-    
+  srcIndex = adj_matrix[0].index(sourceNode)
+  destIndex = adj_matrix[0].index(endNode)
+  
+  
     # Update the adjacency matrix with the weight
-  adj_matrix[src_index][dest_index] = weight
-  adj_matrix[dest_index][src_index] = weight
+  print(srcIndex)
+  print(destIndex)
+  print(len(adj_matrix))
+  print(len(adj_matrix[srcIndex]))
+
+  adj_matrix[srcIndex][destIndex] = weight
+  adj_matrix[destIndex][srcIndex] = weight
     
-  return adj_matrix
+  return adj_matrix    
