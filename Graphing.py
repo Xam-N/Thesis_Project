@@ -7,24 +7,27 @@ def createMatrix(data):
     
     adjMatrix = None
     
-    for index,row in data.iterrows():
+    #for index,row in data.iterrows():
       #print("Here")
-      adjMatrix = addNode(adjMatrix, row['Academic Item'])
+     # adjMatrix = addNode(adjMatrix, row['Academic Item'])
       #print("there")
     
-    np.savetxt('EmptyAdjMatrix.txt', adjMatrix)
+    
+    #np.savetxt('EmptyAdjMatrix.txt', adjMatrix)
         
     for index,row in data.iterrows():
-        wordTags = requirement_word_tag(row['Description'])
-        requirementType = requirement_tag(row['Description'])
-        addRequirementEdges(adjMatrix, row['Academic Item'], wordTags, requirementType,data)
-  
+      
+      wordTags = requirement_word_tag(row['Description'])
+      requirementType = requirement_tag(row['Description'])
+      addRequirementEdges(adjMatrix, row['Academic Item'], wordTags, requirementType,data)
+      if index > 1000: 
+        break
+
     return adjMatrix
 
 
 
 def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data):
-  
   if requirementType == "Credit_Point":
     for word,wordTag in wordTags.items(): # loop through each requirements words
       if wordTag == 'creditPoints':
@@ -35,10 +38,15 @@ def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data):
         unitYear = unitYear + "+"
       if wordTag == 'subjectArea':
         unitSubject = word
-    for dataUnitCode,datarequirements in data.items():
+    for index,row in data.iterrows():
       my_regex = re.escape(unitYear) + r"[0-9]{3}"
-      if re.findall(my_regex,unit) != None:
-        addEdge(adjMatrix,unit, dataUnitCode,weight)
+      print("My Regex: ",my_regex)
+      print(row['Academic Item'])
+      
+      if re.findall(my_regex,row['Academic Item']) != None:
+        print("This matched")
+        print(re.findall(my_regex,row['Academic Item']))
+        addEdge(adjMatrix,unit, row['Academic Item'],weight)
   
   if requirementType == "Boolean":
     weight = 1
@@ -93,21 +101,22 @@ def addNode(adj_matrix: list, new_node):
  
 def addEdge(adj_matrix:list, sourceNode, endNode, weight):
      
+  print("Adding Edges")
     # Check if the nodes of the edge exist in the node list
   if sourceNode not in adj_matrix:
     #print(sourceNode, " This does not exist within the array yet")
     adj_matrix = addNode(adj_matrix,sourceNode)
   
   #print(len(np.where(adj_matrix[0]==sourceNode)))
-  
   if endNode not in adj_matrix:
     #print(sourceNode, " This does not exist in the array yet")
     adj_matrix = addNode(adj_matrix,endNode)
     #print(adj_matrix, " This is the new matrix")
   #print(len(np.where(adj_matrix[0]==endNode)))
     # Get the indices of the source and destination nodes
+  
   print(sourceNode)
-  print(endNode)
+  print("Here ", endNode)
   
   srcIndex = np.where(adj_matrix[0]==sourceNode)[0][0]
   destIndex = np.where(adj_matrix[0]==endNode)[0][0]

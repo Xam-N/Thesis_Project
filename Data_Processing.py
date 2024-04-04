@@ -26,23 +26,63 @@ def dataRead(unitRequirements, unitSessions):
     grouped = merged_data.groupby(['Academic Item', 'Type.1', 'Description'])
     
     def merge_rows(group):
-        # Combine all rows within the group
+
         merged_row = group.iloc[0]
-        # Update 'Session 1' and 'Session 2' columns with max value
+
         merged_row['Session 1'] = group['Session 1'].max()
         merged_row['Session 2'] = group['Session 2'].max()
+        
+
+        Corequisites = []
+        Prerequisites = []
+
+        for index, row in group.iterrows():
+            if row['Type.1'] == 'Co-requisite':
+                Corequisites.append(row['Description'])
+            elif row['Type.1'] == 'Pre-requisite':
+                Prerequisites.append(row['Description'])
+                
+        merged_row['Co-requisite'] = ', '.join(Corequisites)
+        merged_row['Pre-requisite'] = ', '.join(Prerequisites)
+            
         return merged_row
 
     merged_data = grouped.apply(merge_rows).reset_index(drop=True)
     
+    merged_data.drop(columns=['Type.1','Description'], inplace=True)
+    
+    merged_data = merged_data.sort_values('Academic Item')
+    
+    
+    temp = None
+    for index, row in merged_data.iterrows():
+        if temp is None:
+            pass
+        elif temp['Academic Item'] == row['Academic Item']:
+            if row['Pre-requisite'] == "":
+                merged_data.at[index,'Pre-requisite'] = temp['Pre-requisite']
+                merged_data.drop(index, inplace=True)
+            if row['Co-requisite'] == "":
+                #print(row['Co-requisite']," Co ",temp['Co-requisite'], " Req")
+                merged_data.at[index,'Co-requisite'] = temp['Co-requisite']
+                merged_data.drop(index-1, inplace=True)
+        temp = row
 
-             
-    #if row['Academic Item'] == merged_data.iloc[tempIndex]['Academic Item'] and row['Type.1'] == merged_data.iloc[tempIndex]['Type.1'] and row['Description'] == merged_data.iloc[tempIndex]['Description']:           
+    for index,row in merged_data.iterrows():
+        if row['Session 1'] == False and row['Session 2'] == False:
+            #print("here")
+            merged_data.drop(index,inplace=True)    
+    
+     
     
     return merged_data
 
-# Example usage:
 unitRequirements_file = 'unitRequirements.csv'
 unitSessions_file = 'unitSessionOfferings.csv'
 result = dataRead(unitRequirements_file, unitSessions_file)
+#for index, row in result.iterrows():
+
+#    if row['Pre-requisite'] != "" and row['Co-requisite'] != "":
+#        print(row['Pre-requisite'], " Hello ",row['Co-requisite'])
 print(result)
+#result.to_csv("matrix.csv")
