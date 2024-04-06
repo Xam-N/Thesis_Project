@@ -16,10 +16,13 @@ def createMatrix(data):
     #np.savetxt('EmptyAdjMatrix.txt', adjMatrix)
         
     for index,row in data.iterrows():
-      
-      wordTags = requirement_word_tag(row['Description'])
-      requirementType = requirement_tag(row['Description'])
-      addRequirementEdges(adjMatrix, row['Academic Item'], wordTags, requirementType,data)
+  
+      wordTagPre = requirement_word_tag(row['Pre-requisite'])
+      requirementTypePre = requirement_tag(row['Pre-requisite'])
+      addRequirementEdges(adjMatrix, row['Academic Item'], wordTagPre, requirementTypePre,data,True)
+      wordTagCo = requirement_word_tag(row['Co-requisite'])
+      requirementTypeCo = requirement_tag(row['Pre-requisite'])
+      addRequirementEdges(adjMatrix, row['Academic Item'], wordTagCo, requirementTypeCo,data,False)
       if index > 1000: 
         break
 
@@ -27,26 +30,9 @@ def createMatrix(data):
 
 
 
-def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data):
+def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data, Pre):
   if requirementType == "Credit_Point":
-    for word,wordTag in wordTags.items(): # loop through each requirements words
-      if wordTag == 'creditPoints':
-        weight = 10/(int(re.findall(r'\d+',word)[0])) # 10/number of credit points required
-      if wordTag == 'unitYear': 
-        unitYear = (re.findall(r'\d',word))[0]
-      if wordTag == 'inequal':
-        unitYear = unitYear + "+"
-      if wordTag == 'subjectArea':
-        unitSubject = word
-    for index,row in data.iterrows():
-      my_regex = re.escape(unitYear) + r"[0-9]{3}"
-      print("My Regex: ",my_regex)
-      print(row['Academic Item'])
-      
-      if re.findall(my_regex,row['Academic Item']) != None:
-        print("This matched")
-        print(re.findall(my_regex,row['Academic Item']))
-        addEdge(adjMatrix,unit, row['Academic Item'],weight)
+    pass
   
   if requirementType == "Boolean":
     weight = 1

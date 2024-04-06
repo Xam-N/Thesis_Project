@@ -1,95 +1,20 @@
-
-    
-    
-    
-    for i in range(1,len(adj_matrix)-1):
-      print(adj_matrix[i][len(adj_matrix)-1])
-      adj_matrix[i][len(adj_matrix)-1] = 0
+for word,wordTag in wordTags.items(): # loop through each requirements words
+      if wordTag == 'creditPoints':
+        weight = 10/(int(re.findall(r'\d+',word)[0])) # 10/number of credit points required
+      if wordTag == 'unitYear': 
+        unitYear = (re.findall(r'\d',word))[0]
+      if wordTag == 'inequal':
+        above = True
+      if wordTag == 'subjectArea':
+        unitSubject = word
+    for index,row in data.iterrows():
+      my_regex = re.escape(unitYear) + r"[0-9]{3}"
+      print("My Regex: ",my_regex)
+      print(row['Academic Item'])
       
-    for j in range(1,len(adj_matrix)-1):
-      adj_matrix[len(adj_matrix)-1][j] = 0
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    tempIndex = 1
-    
-    for index, row in merged_data.iterrows():
-        print(row['Academic Item'])
-        print(merged_data.iloc[tempIndex]['Academic Item'])
-        if row['Academic Item'] == merged_data.iloc[tempIndex]['Academic Item']:
-            if merged_data.loc[index]['Session 1'] == False and row['Session 1'] == True:
-                print("here")
-                merged_data.loc[index]['Session 1'] = True
-            if merged_data.loc[index]['Session 2'] == False and row['Session 2'] == True:
-                print("here")
-                merged_data.loc[index]['Session 2'] = True
-        else:
-            print("changing this")
-            tempIndex = index
-
-
-pass
-  if requirementType == "Boolean":  # Use '==' for string comparison
-    i = 0
-    while i < len(wordTags)-1:
-          if wordTags[i] == "lbracket":
-              # Handle bracket logic
-              bracket_count = 1
-              j = i + 1
-              while j < len(wordTags):
-                  if wordTags[j] == "lbracket":
-                      bracket_count += 1
-                  elif wordTags[j] == "rbracket":
-                      bracket_count -= 1
-                  if bracket_count == 0:
-                      break
-                  j += 1
-              # Now j points to the matching rbracket
-
-          if wordTags[i] == "unitCode":
-              if (i < len(wordTags) - 1) and (wordTags[i+1] == "bool" and wordTags[i+1] == "or"):
-                  adj_matrix = addEdge(adj_matrix, (unitCode, wordTags[i]), 1)
-              if (i < len(wordTags) - 1) and (wordTags[i+1] == "bool" and wordTags[i+1] == "and"):
-                  andCounter = 0
-                  j = i + 1
-                  while j < len(wordTags) - 1:
-                      if wordTags[j] == "bool" and wordTags[j+1] == "and":
-                          andCounter += 1
-                          j += 1  # Increment j to avoid infinite loop
-                      else:
-                          break
-                  weight = 1.0 / (andCounter + 1)
-                  adj_matrix = addEdge(adj_matrix, (unitCode, wordTags[i]), weight)
-
-          i += 1
-  
-  return adj_matrix
-
-
-
-
-
-    # Initialize an empty matrix filled with zeros
-    matrix = [[0] * len(nodes) for _ in range(len(nodes))]
-    
-    # Fill in the matrix based on edges
-    for edge in edges:
-        src, dest = edge
-        src_index = node_index[src]
-        dest_index = node_index[dest]
-        # Assuming it's an undirected graph, so filling both src->dest and dest->src
-        matrix[src_index][dest_index] = 1
-        matrix[dest_index][src_index] = 1
-    
-    # Add row and column headers
-    matrix_with_headers = [[''] + nodes]  # First row with column headers
-    for i, row in enumerate(matrix):
-        matrix_with_headers.append([nodes[i]] + row)  # Add row headers
-    return matrix_with_headers
+      if re.findall(my_regex,row['Academic Item']) != None:
+        print("This matched")
+        print(re.findall(my_regex,row['Academic Item']))
+        if Pre == False:
+          weight = weight * -1
+        addEdge(adjMatrix,unit, row['Academic Item'],weight)

@@ -84,5 +84,5 @@ result = dataRead(unitRequirements_file, unitSessions_file)
 
 #    if row['Pre-requisite'] != "" and row['Co-requisite'] != "":
 #        print(row['Pre-requisite'], " Hello ",row['Co-requisite'])
-print(result)
+#print(result)
 #result.to_csv("matrix.csv")
