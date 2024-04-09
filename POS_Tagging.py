@@ -31,6 +31,7 @@ custom_tags = {
 #returns a tagged requirement given
 def requirement_word_tag(data):
   words = re.findall(r'\(|\)|\w+', data)
+  print(words)
   word_types = {}
   for word in words:
       matched = None
@@ -42,5 +43,5 @@ def requirement_word_tag(data):
   
   return word_types
 
-#for sampleName ,sampleRequirement in sample.items():
-#  print(requirement_word_tag(sampleRequirement))
+for sampleName ,sampleRequirement in sample.items():
+  print(requirement_word_tag(sampleRequirement))
