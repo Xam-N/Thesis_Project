@@ -8,7 +8,8 @@ sample = {
   "sample 5":"20cp from 3000 level units ",
   "sample 6":"30cp at 1000 level or above ",
   "sample 7": "(COMP3100 or COMP3000) and (ENGG3000 or ENGG3050)",
-  "sample 8": "(COMP3100 or COMP3000) and (20cp from 3000 level units)"
+  "sample 8": "(COMP3100 or COMP3000) and (20cp from 3000 level units)",
+  "sample 9": "COMP3100 or COMP310"
 }
 
 
@@ -24,6 +25,7 @@ custom_tags = {
   "unitField": r" [a-zA-Z]{4} ",
   "lbracket": r"\(",
   "rbracket": r"\)",
+  "pre2020": r"[A-Z]{4}[0-9]{3}"
 }
 
 #returns a tagged requirement given
@@ -41,4 +43,4 @@ def requirement_word_tag(data):
   return word_types
 
 #for sampleName ,sampleRequirement in sample.items():
- # print(requirement_word_tag(sampleRequirement))
+#  print(requirement_word_tag(sampleRequirement))

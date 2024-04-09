@@ -8,7 +8,7 @@ def dataRead(unitRequirements, unitSessions):
     SessionData = rawSessionData.drop(columns=['Title', 'Version Number', 'Status', 'Owning Faculty', 'Academic Org', 'Display Name', 'Attendance Mode', 'Quota Number', 'Location'])
     
     # Getting rid of garbage requirement types
-    RequirementData = RequirementData[~RequirementData['Type.1'].isin(["NCCW (pre-2020 units)", "Info"])]
+    RequirementData = RequirementData[~RequirementData['Type.1'].isin(["NCCW (pre-2020 units)", "Info"])] #remove this because I might need the session time for some of the units
     RequirementData = RequirementData.sort_values('Academic Item')
     
     SessionData = SessionData[SessionData['Teaching Period'].isin(["Session 1", "Session 2"])]
