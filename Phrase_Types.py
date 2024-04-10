@@ -1,6 +1,18 @@
 import re
 from POS_Tagging import sample, requirement_word_tag
 
+sample = {
+  "sample 1": "COMP3100 - something else ",
+  "sample 2": "COMP1000 - ENGG1000 ",
+  "sample 3":"COMP3100 and COMP1000",
+  "sample 4":"COMP3100 or COMP1000 ",
+  "sample 5":"20cp from 3000 level units ",
+  "sample 6":"30cp at 1000 level or above ",
+  "sample 7": "(COMP3100 or COMP3000) and (ENGG3000 or ENGG3050)",
+  "sample 8": "(COMP3100 or COMP3000) and (20cp from 3000 level units)",
+  "sample 9": "COMP3100 or COMP310",
+  "sample 10": "DUPL1000 or DUPL1000"
+}
 # Define requirement types and the corresponding patterns
 phraseTags = {
     "Boolean": r"(\(*unitCode|pre2020)(\s+(bool|and|or)\s+(unitCode|pre2020))*",
@@ -23,12 +35,9 @@ def requirement_tag(descriptionTags: str): # input should be string
         new = descriptionTags[lbracketIndex+9:rbracketIndex-1]
         #print(new)
         #print("I am here : ",requirement_tag(new))
-        print("Before ", descriptionTags)
+        #print("Before ", descriptionTags)
         descriptionTags = descriptionTags.replace((descriptionTags[lbracketIndex:rbracketIndex+8]),requirement_tag(new))
-        #descriptionTags[lbracketIndex:rbracketIndex] = requirement_tag(new)
-        print("After ",     descriptionTags)
-        #descriptionTags = descriptionTags[:lbracketIndex]+[requirement_tag(new)]+descriptionTags[rbracketIndex+1:]
-        #label += requirement_tag(new)
+        #print("After ",     descriptionTags)
     for phrase_name, phrase_type in phraseTags.items():
         if re.match(phrase_type, descriptionTags):
             label += phrase_name                

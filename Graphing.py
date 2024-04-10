@@ -53,9 +53,6 @@ def createMatrix(data):
 
 def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data, Pre):
   
-      
-  
-  
   if requirementType == "":
     return adjMatrix
   

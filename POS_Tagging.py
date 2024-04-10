@@ -9,7 +9,8 @@ sample = {
   "sample 6":"30cp at 1000 level or above ",
   "sample 7": "(COMP3100 or COMP3000) and (ENGG3000 or ENGG3050)",
   "sample 8": "(COMP3100 or COMP3000) and (20cp from 3000 level units)",
-  "sample 9": "COMP3100 or COMP310"
+  "sample 9": "COMP3100 or COMP310",
+  "sample 10": "DUPL1000 or DUPL1000"
 }
 
 
@@ -31,17 +32,24 @@ custom_tags = {
 #returns a tagged requirement given
 def requirement_word_tag(data):
   words = re.findall(r'\(|\)|\w+', data)
-  print(words)
+  #print(words)
   word_types = {}
-  for word in words:
+  for index,word in enumerate(words):
       matched = None
       for type_label, pattern in custom_tags.items():
           if re.match(pattern, word):
-              matched = type_label
-              break
+            #print("Pattern is : ",pattern)
+            #print("Word is : ",word)
+            matched = type_label
+            #print("Matched = ",matched)
+            break
+      #print(type(word))
+      word = str(index) + "#" + word
       word_types[word] = matched
-  
+      #print("Word Types[word] is now : ",word_types[word])
+  #print(word_types)
   return word_types
 
-for sampleName ,sampleRequirement in sample.items():
-  print(requirement_word_tag(sampleRequirement))
+#for sampleName ,sampleRequirement in sample.items():
+  #requirement_word_tag(sampleRequirement)
+  #print(requirement_word_tag(sampleRequirement))
