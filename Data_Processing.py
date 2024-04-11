@@ -7,8 +7,10 @@ def dataRead(unitRequirements, unitSessions):
     rawSessionData = pd.read_csv(unitSessions)
     SessionData = rawSessionData.drop(columns=['Title', 'Version Number', 'Status', 'Owning Faculty', 'Academic Org', 'Display Name', 'Attendance Mode', 'Quota Number', 'Location'])
     
-    # Getting rid of garbage requirement types
-    RequirementData = RequirementData[~RequirementData['Type.1'].isin(["NCCW (pre-2020 units)", "Info"])] #remove this because I might need the session time for some of the units
+    #remove this one for bin packing, need all of the units sessions not just the ones with pre and co-requisites
+    RequirementData = RequirementData[~RequirementData['Type.1'].isin(["NCCW (pre-2020 units)"])] 
+    
+    
     RequirementData = RequirementData.sort_values('Academic Item')
     
     SessionData = SessionData[SessionData['Teaching Period'].isin(["Session 1", "Session 2"])]
@@ -49,40 +51,47 @@ def dataRead(unitRequirements, unitSessions):
 
     merged_data = grouped.apply(merge_rows).reset_index(drop=True)
     
-    merged_data.drop(columns=['Type.1','Description'], inplace=True)
+    
     
     merged_data = merged_data.sort_values('Academic Item')
     
     
     temp = None
+    rows_to_drop = []  # Collect indices of rows to drop
     for index, row in merged_data.iterrows():
         if temp is None:
             pass
         elif temp['Academic Item'] == row['Academic Item']:
             if row['Pre-requisite'] == "":
                 merged_data.at[index,'Pre-requisite'] = temp['Pre-requisite']
-                merged_data.drop(index, inplace=True)
+                rows_to_drop.append(index)
             if row['Co-requisite'] == "":
-                #print(row['Co-requisite']," Co ",temp['Co-requisite'], " Req")
                 merged_data.at[index,'Co-requisite'] = temp['Co-requisite']
-                merged_data.drop(index-1, inplace=True)
+                rows_to_drop.append(index - 1)
         temp = row
 
+    merged_data.drop(index=rows_to_drop, inplace=True)
+    
+    rows_to_drop = []
     for index,row in merged_data.iterrows():
         if row['Session 1'] == False and row['Session 2'] == False:
             #print("here")
-            merged_data.drop(index,inplace=True)    
+            rows_to_drop.append(index)
     
-     
+    merged_data.drop(index=rows_to_drop, inplace=True)
+    
+    merged_data.drop(columns=['Type.1','Description'], inplace=True) 
+    
+    merged_data = merged_data.sort_values('Academic Item')
     
     return merged_data
 
-unitRequirements_file = 'unitRequirements.csv'
-unitSessions_file = 'unitSessionOfferings.csv'
-result = dataRead(unitRequirements_file, unitSessions_file)
+#unitRequirements_file = 'unitRequirements.csv'
+#unitSessions_file = 'unitSessionOfferings.csv'
+#result = dataRead(unitRequirements_file, unitSessions_file)
+#print(result)
 #for index, row in result.iterrows():
-
-#    if row['Pre-requisite'] != "" and row['Co-requisite'] != "":
-#        print(row['Pre-requisite'], " Hello ",row['Co-requisite'])
+#    if row['Pre-requisite'] == "" or row['Co-requisite'] == "":
+#       print(row['Pre-requisite'], " Hello ",row['Co-requisite'])
 #print(result)
 #result.to_csv("matrix.csv")

@@ -11,44 +11,38 @@ sample = {
   "sample 7": "(COMP3100 or COMP3000) and (ENGG3000 or ENGG3050)",
   "sample 8": "(COMP3100 or COMP3000) and (20cp from 3000 level units)",
   "sample 9": "COMP3100 or COMP310",
-  "sample 10": "DUPL1000 or DUPL1000"
+  "sample 10": "DUPL1000 or DUPL1000",
+  "sample 11": "COMP3100"
 }
+
 # Define requirement types and the corresponding patterns
 phraseTags = {
     "Boolean": r"(\(*unitCode|pre2020)(\s+(bool|and|or)\s+(unitCode|pre2020))*",
     "Credit_Point": r"creditPoints\s+unitYear\s+level(\s+(bool|inequal))*",
-    "Composite": r"(Boolean|Credit_Point) (bool Boolean|Credit_Point)+",
+    "Composite": r"((Boolean bool Credit_Point)|(Credit_Point bool Boolean))+", #if boolean and credit point is present within a thingy
     #"Other": r"", #should return other for admission etc.
 }
 
-#returns the label of the requirement
-def requirement_tag(descriptionTags: str): # input should be string
+
+def requirement_tag(descriptionTags):#returns the label of the requirement as long as no brackets involved
+    wordTags = ""
+    for wordList in descriptionTags:
+        if wordList[1] is not None:
+            wordTags = wordTags + wordList[1] + " "
     label = ""
-    #print(temp) 
-    lbracketIndex = 0
-    rbracketIndex = 0
-    while 'lbracket' in descriptionTags[rbracketIndex:]:
-        lbracketIndex = descriptionTags.index('lbracket')
-        #print(temp[lbracketIndex+1])
-        rbracketIndex = descriptionTags.index('rbracket')
-        #print(temp[rbracketIndex])
-        new = descriptionTags[lbracketIndex+9:rbracketIndex-1]
-        #print(new)
-        #print("I am here : ",requirement_tag(new))
-        #print("Before ", descriptionTags)
-        descriptionTags = descriptionTags.replace((descriptionTags[lbracketIndex:rbracketIndex+8]),requirement_tag(new))
-        #print("After ",     descriptionTags)
     for phrase_name, phrase_type in phraseTags.items():
-        if re.match(phrase_type, descriptionTags):
-            label += phrase_name                
-    #print("The requirement Label for: ",descriptionTags,"is: ",label)
+        if re.match(phrase_type, wordTags):
+            label = label + phrase_name              
+    print("The requirement Label for: ",wordTags,"is: ",label)
+    if label == "":
+        label = "Other"
     return label
 
-for examples in sample.values():
-    requirementTags = requirement_word_tag(examples)
-    descriptionTags = ""
-    for word_tag in requirementTags.values():
-       if word_tag is not None:
-           descriptionTags += word_tag + " "
-    requirement_tag(descriptionTags)
-    print(requirement_tag(descriptionTags))
+
+
+ 
+#for sampleName ,sampleRequirement in sample.items():
+  
+  #requirement_word_tag(sampleRequirement)
+#  words = requirement_word_tag(sampleRequirement)
+#  print(requirement_tag(words))
