@@ -3,7 +3,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 # Read the adjacency matrix from CSV file
-adjacency_df = pd.read_csv('matrix.csv', index_col=0, header=0)
+adjacency_df = pd.read_csv('matrix.csv')
 
 # Get course labels from the first row of the DataFrame
 course_labels = list(adjacency_df.columns)
