@@ -42,36 +42,42 @@ def createMatrix(data,desired):
 
 def findWeight(wordTags,weight): #finds the number of and thingys to determine the weight each edge of a nested requirement should be added with
   
-  andCounter = 0
+  andCounter = 0.0
   
-  inside = False
+  lBracketCounter = 0
   
   for word in wordTags:
-    
-    if word[0] == "(": #make sure the ands are not within brackets of their own
-      inside = True
+     
+    if word[0] ==  "(":
+      lBracketCounter = lBracketCounter + 1
 
     if word[0] == ")":
-      inside = False
+      lBracketCounter = lBracketCounter - 1
       
-    if word[0] == "and" and inside == False: #if an and is present increment the AND counter to reflect as such
+    if word[0] == "and" and lBracketCounter == 0: #if an and is present increment the AND counter to reflect as such
       andCounter += 1 
+  
+  print("The given word list is: ",wordTags)
+  print("The weight before is: ",weight)
   
   weight = weight / (andCounter+1) #1 and has 2 nodes of weight 0.5 therefore divide weight by andCounter + 1
   
+  print("The weight after is: ",weight)
   print("The weight of the new edge should be: ",weight," andCounter is : ",andCounter)
   return weight
 
 def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data, Pre,weight): #if adding an OR boolean relation I have to add an extra node I believe, is this true.
   
-  print("This is the word list inputed : ", wordTags)
+  #print("This is the word list inputed : ", wordTags)
   
   if requirementType == "Credit_Point": #this is broken, only works with things already in the 
+    print("This requirement is a credit point")
     above = False
     unitSubject = ""
+    creditWeight = 1
     for word in wordTags: # loop through each requirements words
       if word[1] == 'creditPoints':
-        weight = weight*10/(int(re.findall(r'\d+',word[0])[0])) # 10/number of credit points required
+        creditWeight = 10/(int(re.findall(r'\d+',word[0])[0])) # 10/number of credit points required
       if word[1] == 'unitYear': 
         unitYear = (re.findall(r'\d',word[0]))[0]
       if word[1] == 'inequal':
@@ -91,20 +97,21 @@ def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data, Pre,wei
     
     my_regex = plus + my_regex
       #print("Above is not true this is the regex : ",my_regex)
-    
+        
     for row in adjMatrix:
-      if row[0] == "" or row[0] == unit or "#" in row[0]:
+      if row[0] == "" or row[0] == unit or "#" in row[0] or "!" in row[0]:
         pass
       else:
         #print("I am here ",row)
         if len(re.findall(my_regex,row[0])) != 0:
-          print("This matched ",print(re.findall(my_regex,row[0])))
+          #print("This matched ",print(re.findall(my_regex,row[0])))
           #print(len(re.findall(my_regex,row[0])))
           if Pre == False:
             weight = weight * -1
-          adjMatrix = addEdge(adjMatrix,unit, row[0],weight)
+          adjMatrix = addCreditPointEdge(adjMatrix,unit,row[0],weight,creditWeight)
         else:
-          print("This did not match")
+          #print("This did not match")
+          pass
   
   if requirementType == "Boolean":
     andCounter = 0
@@ -113,8 +120,8 @@ def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data, Pre,wei
       #print("Word is : ",word)
       #print("Word Tag is : ",wordTag)
       if word[1] == 'lbracket' or word[1] == 'rbracket':
-        print("This is the current requirement for a bracket alert : ",wordTags)
-        print("The unit is : ",unit)
+        #print("This is the current requirement for a bracket alert : ",wordTags)
+        #print("The unit is : ",unit)
         return adjMatrix
       if word[1] == 'unitCode':
         tempUnitCode = word[0]
@@ -122,7 +129,7 @@ def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data, Pre,wei
         if word[0] == 'or':
           #print("if or : ", adjMatrix)
           #adjMatrix = addEdge(adjMatrix,unit,tempUnitCode,weight*Pre) #change this later
-          print("the weight prior to the function being called is : ",weight)
+          #print("the weight prior to the function being called is : ",weight)
           adjMatrix = addOrEdge(adjMatrix,unit,tempUnitCode,weight*Pre) 
           #print("if or : ", adjMatrix)
           tempUnitCode = ''
@@ -161,9 +168,9 @@ def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data, Pre,wei
     if word[1] == "rbracket":
       rbracketIndex = index
       newWords = wordTags[lbracketIndex+1:rbracketIndex] #adjust the word list to be after the section of brackets ends
-      print("newWords = ",newWords)
+      #print("newWords = ",newWords)
       newTags = requirement_tag(newWords) 
-      print("newTags = ",newTags)
+      #print("newTags = ",newTags)
       weight = findWeight(wordTags,weight) #figure out how to find the weight before I run this code
       adjMatrix = addRequirementEdges(adjMatrix,unit,newWords,newTags,data,Pre,weight)
   
@@ -207,25 +214,34 @@ def addOrEdge(adj_matrix,sourceNode,endNode,weight): #to do
   newNode = sourceNode + "#"
   
   if newNode not in adj_matrix:
-    print("Here")
+    #print("Here")
     adj_matrix = addEdge(adj_matrix,sourceNode,newNode,weight)
   
   adj_matrix = addEdge(adj_matrix,newNode,endNode,1)
+    
+  return adj_matrix
+
+def addCreditPointEdge(adj_matrix,sourceNode,endNode,weight,creditWeight): #to do
   
+  newNode = sourceNode + "!"
   
+  if newNode not in adj_matrix:
+    #print("Here")
+    adj_matrix = addEdge(adj_matrix,sourceNode,newNode,weight) #adds credit point node if it does not already exist
   
-  
+  adj_matrix = addEdge(adj_matrix,newNode,endNode,creditWeight)#adds the edge from the credit point node to the end node
+    
   return adj_matrix
   
-  
-  
 def addEdge(adj_matrix:list, sourceNode, endNode, weight):
+  
+  
      
-  print("Adding Edges")
+  #print("Adding Edges")
   #print(adj_matrix)
   #print("Source Node is: ",sourceNode)
   if adj_matrix is None:
-    print("Matrix is none for some reason???")
+    #print("Matrix is none for some reason???")
     adj_matrix = addNode(adj_matrix, None)
     # Check if the nodes of the edge exist in the node list
   if sourceNode not in adj_matrix:
@@ -261,11 +277,12 @@ def addEdge(adj_matrix:list, sourceNode, endNode, weight):
   print(len(adj_matrix[srcIndex]))
   print(adj_matrix)
   """
-  print("Before the weight assignments: ",adj_matrix)
+  #print("Before the weight assignments: ",adj_matrix)
   #adj_matrix[srcIndex,destIndex] = weight
   if(adj_matrix[destIndex,srcIndex]!='0'):
-    print("This is not 0 why? : ",adj_matrix[destIndex,srcIndex])
+    pass
+    #print("This is not 0 why? : ",adj_matrix[destIndex,srcIndex])
   adj_matrix[destIndex,srcIndex] = weight
-  print("After the weight assignments: ",adj_matrix)
+  #print("After the weight assignments: ",adj_matrix)
   #print(adj_matrix)
   return adj_matrix

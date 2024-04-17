@@ -1,67 +1,38 @@
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
+from POS_Tagging import sample, custom_tags, requirement_word_tag
+from Phrase_Types import phraseTags, requirement_tag
 
-def build_parse_tree(expression):
-    # Remove whitespace from the expression
-    expression = expression.replace(" ", "")
+#fix this
+test = "10cp from (MATH132-MATH136 or DMTH137 or MATH1007-MATH1025 or (STAT150 or STAT1250) or (STAT170 or STAT1170) or (STAT171 or STAT1371) or (STAT175 or STAT1175))"
 
-    # Helper function to create nodes
-    def create_node(value):
-        return Node(value)
+def findWeight(wordTags,weight): #finds the number of and thingys to determine the weight each edge of a nested requirement should be added with)
+  
+  andCounter = 0.0
+  
+  lBracketCounter = 0
+  
+  for word in wordTags:
+     
+    if word[0] ==  "(":
+      lBracketCounter = lBracketCounter + 1
 
-    # Helper function to parse the expression recursively
-    def parse_expression(start, end):
-        if start == end:
-            return create_node(expression[start])
+    if word[0] == ")":
+      lBracketCounter = lBracketCounter - 1
+      
+    if word[0] == "and" and lBracketCounter == 0: #if an and is present increment the AND counter to reflect as such
+      andCounter += 1 
+  
+  print("The given word list is: ",wordTags)
+  print("The weight before is: ",weight)
+  
+  weight = weight / (andCounter+1) #1 and has 2 nodes of weight 0.5 therefore divide weight by andCounter + 1
+  
+  print("The weight after is: ",weight)
+  print("The weight of the new edge should be: ",weight," andCounter is : ",andCounter)
+  return weight
 
-        parentheses_count = 0
-        lowest_operator_index = None
-        for i in range(end, start - 1, -1):
-            if expression[i] == ')':
-                parentheses_count += 1
-            elif expression[i] == '(':
-                parentheses_count -= 1
-            elif expression[i] in {'and', 'or'} and parentheses_count == 0:
-                lowest_operator_index = i
-                break
 
-        if lowest_operator_index is not None:
-            root = create_node(expression[lowest_operator_index])
-            root.left = parse_expression(start, lowest_operator_index - 1)
-            root.right = parse_expression(lowest_operator_index + 1, end)
-            return root
-        elif expression[start] == '(' and expression[end] == ')':
-            return parse_expression(start + 1, end - 1)
-        else:
-            return create_node(expression[start:end + 1])
 
-    # Start parsing from the first character
-    return parse_expression(0, len(expression) - 1)
-
-def build_adjacency_matrix(root, matrix=None):
-    if matrix is None:
-        matrix = {}
-
-    if root is not None:
-        if root.value in {'and', 'or'}:
-            matrix[root.value] = matrix.get(root.value, [])
-
-            if root.left:
-                matrix[root.value].append(root.left.value)
-                build_adjacency_matrix(root.left, matrix)
-            if root.right:
-                matrix[root.value].append(root.right.value)
-                build_adjacency_matrix(root.right, matrix)
-        else:
-            matrix[root.value] = []
-
-    return matrix
-
-# Example usage:
-expression = "(COMP3100 or COMP3000) and (20cp from 3000 level units)"
-parse_tree_root = build_parse_tree(expression)
-adjacency_matrix = build_adjacency_matrix(parse_tree_root)
-print(adjacency_matrix)
+testing = requirement_word_tag(test)
+type = requirement_tag(testing)
+print(type)
+print(findWeight(testing,0.5))
