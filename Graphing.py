@@ -196,6 +196,7 @@ def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,data,weight):
       lbracketIndex = index
     if word[1] == "rbracket":
       rbracketIndex = index
+      if lbracketIndex
       newWords = wordTags[lbracketIndex+1:rbracketIndex] #adjust the word list to be after the section of brackets ends
       #print("newWords = ",newWords)
       newTags = requirement_tag(newWords) 
