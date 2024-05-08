@@ -1,38 +1,23 @@
-from POS_Tagging import sample, custom_tags, requirement_word_tag
-from Phrase_Types import phraseTags, requirement_tag
+def find_combinations(names_numbers, target_sum, partial=[], start=0):
+    result = []
+    
+    # Check if the partial sum equals the target sum
+    if sum(names_numbers[name] for name in partial) >= target_sum:
+        result.append(partial[:])
+    
+    # Base case: If the partial sum exceeds the target sum or the list is empty, return
+    if sum(names_numbers[name] for name in partial) >= target_sum or start == len(names_numbers):
+        return result
+    
+    # Recursively find combinations including and excluding the current number
+    for i in range(start, len(names_numbers)):
+        name = list(names_numbers.keys())[i]
+        result.extend(find_combinations(names_numbers, target_sum, partial + [name], i + 1))
+    
+    return result
 
-#fix this
-test = "10cp from (MATH132-MATH136 or DMTH137 or MATH1007-MATH1025 or (STAT150 or STAT1250) or (STAT170 or STAT1170) or (STAT171 or STAT1371) or (STAT175 or STAT1175))"
-
-def findWeight(wordTags,weight): #finds the number of and thingys to determine the weight each edge of a nested requirement should be added with)
-  
-  andCounter = 0.0
-  
-  lBracketCounter = 0
-  
-  for word in wordTags:
-     
-    if word[0] ==  "(":
-      lBracketCounter = lBracketCounter + 1
-
-    if word[0] == ")":
-      lBracketCounter = lBracketCounter - 1
-      
-    if word[0] == "and" and lBracketCounter == 0: #if an and is present increment the AND counter to reflect as such
-      andCounter += 1 
-  
-  print("The given word list is: ",wordTags)
-  print("The weight before is: ",weight)
-  
-  weight = weight / (andCounter+1) #1 and has 2 nodes of weight 0.5 therefore divide weight by andCounter + 1
-  
-  print("The weight after is: ",weight)
-  print("The weight of the new edge should be: ",weight," andCounter is : ",andCounter)
-  return weight
-
-
-
-testing = requirement_word_tag(test)
-type = requirement_tag(testing)
-print(type)
-print(findWeight(testing,0.5))
+# Example usage
+names_numbers = {'Alice': 2, 'Bob': 3, 'Charlie': 6, 'David': 7, 'Eve': 8}
+target_sum = 10
+combinations = find_combinations(names_numbers, target_sum)
+print("Combinations that meet or exceed the target sum:", combinations)
