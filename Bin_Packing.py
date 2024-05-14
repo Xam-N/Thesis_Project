@@ -6,12 +6,14 @@ def binPacking(preReqAdjMatrix,coReqAdjMatrix, data,desiredUnits):
   currentSession = 1
   completedUnits = [] #list of completed/scheduled units
   
+  coReqs = generateCoReqs(coReqAdjMatrix)
+  
   while True:
-    
-    print("Starting")
+  
     
     while True:
       takeablePreUnits = findTakeablePreUnits(preReqAdjMatrix,completedUnits)[0]
+      
       fakePreUnits = findTakeablePreUnits(preReqAdjMatrix,completedUnits)[1]
       notTakeablePreUnits = findTakeablePreUnits(preReqAdjMatrix,completedUnits)[2]
       if len(fakePreUnits) != 0: #if this list contains bad units
@@ -26,6 +28,7 @@ def binPacking(preReqAdjMatrix,coReqAdjMatrix, data,desiredUnits):
         break
       
     while True:
+      #print("Here")
       takeableCoUnits = findTakeablePreUnits(coReqAdjMatrix,completedUnits)[0]
       fakeCoUnits = findTakeablePreUnits(coReqAdjMatrix,completedUnits)[1]
       notTakeableCoUnits = findTakeablePreUnits(coReqAdjMatrix,completedUnits)[2]
@@ -41,27 +44,78 @@ def binPacking(preReqAdjMatrix,coReqAdjMatrix, data,desiredUnits):
       else:
         break
     
-    
-    possibleCo = generateCoReqs(coReqAdjMatrix,takeablePreUnits,notTakeablePreUnits, takeableCoUnits, notTakeableCoUnits,completedUnits)
-    print("This is the important Shit \n",possibleCo)
-                
-    #print("Completed units is equal to: ",completedUnits)
-    
-    #print("Takeable units is equal to: ",takeablePreUnits)
-    
-    if len(takeablePreUnits) == 0:
-      break
+    takeableUnits = []
+    for unit in takeablePreUnits:
+      if unit in takeableCoUnits:
+        #print("Doing this")
+        takeableUnits.append(unit)
+        
+    if len(takeableUnits) == 0:
+      pass
+      #print("Why is this empty" , takeablePreUnits)
+      #print(takeableCoUnits)
 
-    sortedUnits = sortUnits(preReqAdjMatrix,coReqAdjMatrix,takeablePreUnits,desiredUnits,data,possibleCo)
-  
-    #print("Sorted units is equal to: ",sortedUnits)
+    sortedUnits = sortUnits(preReqAdjMatrix,coReqAdjMatrix,takeableUnits,desiredUnits,data)
+    
+    
   
     availableUnits = availability(data,sortedUnits,currentSession)
     
     if len(availableUnits) == 0:
-      print("No units can be done")
+      #print("No units can be done")
       break
     
+   
+    
+    elif len(coReqs) != 0:
+      #print("Before ",availableUnits)
+      for unit in coReqs: #unit is a unitcode of the unit who's coreqs im a currently checking
+        if unit[0][0] not in completedUnits and unit[0][0] not in takeableUnits: #unit is not already completed and unit is not already takeable
+          #check if unit is available in current session and calculate the dep length of this unit
+          for avail in availableUnits[:3]: #change this if I have time to a more dynamic version aka if a unit is that this unit depends on 
+            if avail in unit: #if avail unit is a coreq of unit
+              if len(unit) == 2: #add functionality for more than 1 co-req later, this code only works for 1 simultaneous unit
+                #check the dependency length of the unit to check if this unit is worth scheduling
+                depLength = 0
+                for row in preReqAdjMatrix:
+                  if row[0] == unit[0][0]:
+                    depLength = unitDependencyLength(preReqAdjMatrix,row[0])
+                  if row[0] == avail:
+                    oldUnitLength = unitDependencyLength(preReqAdjMatrix,row[0])
+                temp = 0
+                for row in coReqAdjMatrix:
+                  if row[0] == unit[0][0]:
+                    temp = unitDependencyLength(coReqAdjMatrix,row[0])
+                  if row[0] == avail:
+                    tempOldUnitLength = unitDependencyLength(coReqAdjMatrix,row[0])
+                if temp>depLength:
+                    depLength=temp
+                if tempOldUnitLength > oldUnitLength:
+                  oldUnitLength = tempOldUnitLength
+                
+                
+                available = False
+                
+                if depLength > oldUnitLength:
+                  for index,row in data.iterrows():
+                    #print("The unit is : ",unit)
+                    #print("The row is : ",row)
+                    if unit[0][0] in row['Academic Item']:
+                      if currentSession % 2 == 1:
+                        if row['Session 1'] == True: #check this is string and not boolean
+                          available = True
+                      if currentSession % 2 == 0:
+                        if row['Session 2'] == True:
+                          available = True
+              
+                if available == True:
+                  #print("wtf")
+                  availableUnits.insert(4,unit[0][0])
+
+          
+      #print("After ", availableUnits)
+      #return availableUnits
+      
     #print("Available units is equal to: ",availableUnits)
     
     
@@ -74,27 +128,31 @@ def binPacking(preReqAdjMatrix,coReqAdjMatrix, data,desiredUnits):
     
     #print("Not Available units is equal to: ",noAvail)
     
-    completedUnit4 = []
+    scheduledUnits = []
+    
+    
+    
     
     for index,unit in enumerate(availableUnits):
       #print("Available unit is : ", unit)
       if index >= 4:
         break
       completedUnits.append(unit)
-      completedUnit4.append(unit)
+      #print("scheduled: ", unit)
+      #print("Takeableunits is: ",availableUnits)
+      scheduledUnits.append(unit)
       
-    result = f"{result} Chosen units for Session {currentSession} is : {completedUnit4}\n"
+    result = f"{result} Chosen units for Session {currentSession} is : {scheduledUnits}\n"
     
     currentSession = currentSession + 1
+  
   notScheduled = []
   for units in desiredUnits:
     if units not in completedUnits:
       notScheduled.append(units)
+      
   result = f"{result} The not completed units are: \n{notScheduled}\n"
   return result    
-
-#def checkWeirds(completedUnits):
- # for unit in 
 
 def find_combinations(names_weights, target_sum, partial=[], start=0):
     result = []
@@ -114,34 +172,22 @@ def find_combinations(names_weights, target_sum, partial=[], start=0):
     
     return result
 
-def generateCoReqs(coReqAdjMatrix,takeablePreUnits,notTakeablePreUnits, takeableCoUnits, notTakeableCoUnits,completedUnits):
-  incomingWeight = 0
-  conditionalIncomingWeight = []
-  for unit in notTakeableCoUnits:
-    if unit not in notTakeablePreUnits:
-      for column in range(1,len(coReqAdjMatrix)): #loop through each unit
-        if coReqAdjMatrix[0][column] == unit:
-          for row in coReqAdjMatrix:
-            if row[column] != "0":
-              if row[0] in completedUnits:
-                incomingWeight += float(row[column])
-              elif row[0] in takeablePreUnits or row[0] in takeableCoUnits:
-                temp = []
-                temp.append(row[0])
-                temp.append(float(row[column]))
-                conditionalIncomingWeight.append(temp)
-          if incomingWeight >= 0.99:
-            print("Why is this not already takable?")
-          weightTotal = 0
-          for weights in conditionalIncomingWeight:
-            weightTotal = weightTotal + weights[1]
-          if weightTotal + incomingWeight >= 0.99: #is it possible to do this unit this semester, yes or no
-            goal = 0.99 - incomingWeight
-            unitCombinations = find_combinations(conditionalIncomingWeight,goal)
-            for i in range(len(unitCombinations)):
-              unitCombinations[i].insert(0,coReqAdjMatrix[0][column])
-            return unitCombinations #needs to return the unit too
-  return None
+def generateCoReqs(coReqAdjMatrix):
+  result = []
+  for column in range(1,len(coReqAdjMatrix)):
+    coReqEdges = []
+    for index,row in enumerate(coReqAdjMatrix):
+      if row[column] != "0" and index != 0: #matrix[0][column] has a co req of row[0]
+        #print("here")
+        coReqEdges.append((row[0],float(row[column])))
+    if len(coReqEdges) != 0: #if unit has a co-req
+      #print(coReqEdges)
+      #print(type(coReqEdges))
+      unitCombinations = find_combinations(coReqEdges,1)
+      unitCombinations.insert(0,coReqAdjMatrix[0][column])
+      result.append(unitCombinations)
+        
+  return result
 
 
 
@@ -159,13 +205,20 @@ def availability(data,takeableUnits,currentSession): #returns a list of availabl
       if unit in row['Academic Item']:
         if currentSession % 2 == 1:
           if row['Session 1'] == True: #check this is string and not boolean
-            availableUnits.append(unit)
+            if unit in availableUnits:
+              pass
+              #print("Fixing Stuff")
+            else:
+              availableUnits.append(unit)
         if currentSession % 2 == 0:
           if row['Session 2'] == True:
-            availableUnits.append(unit)
+            if unit in availableUnits:
+              pass
+              #print("Fixing Stuff")
+            else:
+              availableUnits.append(unit)
   return availableUnits
 
-#credit point and or units/nodes break this, because I need to include code to count them as completed whenever their weight goes high enough
 def findTakeablePreUnits(adjMatrix, completedUnits): #need to change to work for co-req
   fakeUnits = []
   takeableUnits = [] #change this to a dictionary, unit: creditpoints
@@ -218,7 +271,6 @@ def matrixNodeRemoval(adjMatrix,node):
   adjMatrix = np.delete(adjMatrix,nodeIndex, axis=1)
   
   return adjMatrix
-
 
 def initialTopologicalSort(adjMatrix):
   
@@ -277,16 +329,11 @@ def garbage(depSort,possibleCo):
               depSort = dict(depSort)
               return depSort
           
-def sortUnits(preReqAdjMatrix,coReqAdjMatrix,takeableUnits,desiredUnits,data,possibleCo):
+def sortUnits(preReqAdjMatrix,coReqAdjMatrix,takeableUnits,desiredUnits,data):
 
   #trial and error must do here
   
   depSort = dependencyLengthGeneration(preReqAdjMatrix,coReqAdjMatrix,takeableUnits,desiredUnits)
-  
-  if possibleCo != None and possibleCo[0][0] not in depSort:
-    garbage(depSort,possibleCo)
-    
-  
 
   sesSort = sessionSort(depSort,data)
 
@@ -299,8 +346,8 @@ def dependencyLengthGeneration(preReqAdjMatrix,coReqAdjMatrix,takeableUnits,desi
     if "#" not in unit[0] and "!" not in unit[0] and unit[0] != "" :
       if unit[0] in takeableUnits:
         if unit[0] in desiredUnits:
-          higher = unitDependencyLength(preReqAdjMatrix,unit)
-          temp = unitDependencyLength(coReqAdjMatrix,unit)
+          higher = unitDependencyLength(preReqAdjMatrix,unit[0])
+          temp = unitDependencyLength(coReqAdjMatrix,unit[0])
           if temp > higher:
             higher = temp
           depDict[unit[0]] = higher
@@ -309,31 +356,26 @@ def dependencyLengthGeneration(preReqAdjMatrix,coReqAdjMatrix,takeableUnits,desi
   depDict = dict(depDict)
   #print(depDict)
   return depDict
-  
-  
-def unitDependencyLength(adjMatrix, unitRow):
+ 
+def unitDependencyLength(adjMatrix, unit):
   highest = 0
   temp = 0
+  unitRow = []
+  for matrixRow in adjMatrix:
+    if unit in matrixRow[0]:
+      unitRow = matrixRow
+      break
+  
   for index,column in enumerate(unitRow):
     if column.isnumeric(): #if the column is an edge column and not a unit name
       if column != "0": #if the column contains an edge
-        newUnitRow = adjMatrix[index] #should make the new unit row the appropriate row
+        newUnit = adjMatrix[index][0] #should make the new unit row the appropriate row
         #print(newUnitRow)
-        if "?" in unitRow[0] or "!" in unitRow[0]: # if unitcode is an OR node or a Credit Point node do not add 1 to the length as these are fake/dummy units
-          return unitDependencyLength(adjMatrix,newUnitRow)
-        temp = 1 + unitDependencyLength(adjMatrix,newUnitRow) #assign a variable to the edges dependency length
+        if "#" in unitRow[0] or "!" in unitRow[0]: # if unitcode is an OR node or a Credit Point node do not add 1 to the length as these are fake/dummy units
+          return unitDependencyLength(adjMatrix,newUnit)
+        temp = 1 + unitDependencyLength(adjMatrix,newUnit) #assign a variable to the edges dependency length
         if temp>highest: #if this units dep len is higher than the current highest
           highest = temp #make unit dep len the highest
   #for each units edge (any edge that leaves the unit)
   #check the dependency length of that unit and if it is higher than the current highest dependency length
   return highest
-
-def testing(inputMatrix):
-   
-  adjMatrix = [["","A","B","C","D!","D" ],["A","0","1","1","1","0"],["B","0","0","1","1","0"],["C","0","0","0","1","0"],["D!","0","0","0","0","1"],["D","0","0","0","0","0"]]
-  #SHOULD RETURN 2
-  
-  #print(unitDependencyLength(adjMatrix,adjMatrix[1]))
-  #print(dependencyLengthGeneration(inputMatrix))
-
-#testing()

@@ -1353,7 +1353,7 @@ Admission to BAncHist or BArch or BArts and 130cp at 1000 level or above or (40c
 1367,MECH2003,True,False,,(MECH1001 or ENGG150) and (MATH1020 or MATH1025 or MATH133 or MATH136)
 1368,MECH2004,True,False,,(MECH1001 or ENGG150) and (MATH1020 or MATH1025 or MATH136 or MATH133)
 1369,MECH2005,False,True,,MECH1001 or ENGG150 or ENGG1050
-1370,MECH3001,True,False,,(MECH2002 or MECH202 and (20cp at 2000 level or above)) or Admission to MEngMechEng
+1370,MECH3001,True,False,,(MECH2002 or MECH202) and (20cp at 2000 level or above)
 1371,MECH3002,False,True,,(MECH2002 and (20cp at 2000 level or above)) or admission to MEngMechEng
 1372,MECH3003,True,False,,((MECH2001 or MECH201) and (MECH2003 or MECH203) and (MECH2004 or MECH204)) or admission to MEngMechEng
 1373,MECH3004,False,True,,(MECH202 or MECH2002) and (MECH204 or MECH2004) and (COMP115 or COMP1000)

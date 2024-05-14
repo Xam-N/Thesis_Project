@@ -29,9 +29,11 @@ custom_tags = {
   "unitField": r" [a-zA-Z]{4} ",
   "lbracket": r"\(",
   "rbracket": r"\)",  
-  "pre2020": r"[A-Z]{4}[0-9]{3}",
-  "HSC":r"HSC"
+  #"pre2020": r"[A-Z]{4}[0-9]{3}",
 }
+
+
+#maybe if an OR is found, check to see if the next word in ABOVE, if so remove the OR
 
 #returns a tagged requirement given
 def requirement_word_tag(data): #when given a string, works perfectly
@@ -40,14 +42,18 @@ def requirement_word_tag(data): #when given a string, works perfectly
   for index,word in enumerate(words):
       matched = None
       for type_label, pattern in custom_tags.items():
-          if re.match(pattern, word):
-            matched = type_label
-            break
-      word_types.append([word,matched])
+        if(word) == "or":
+          if len(words) > index+1:
+            if words[index+1] == "above":
+              break 
+        if re.match(pattern, word):
+          matched = type_label
+          break
+      if matched != None:
+        word_types.append([word,matched])
   return word_types
 
 
-#for sampleName ,sampleRequirement in sample.items():
-#  hey = requirement_word_tag(sampleRequirement)
-#  print(hey[0][1])
-  #print(requirement_word_tag(sampleRequirement)
+for sampleName ,sampleRequirement in sample.items():
+  hey = requirement_word_tag(sampleRequirement)
+  print(requirement_word_tag(sampleRequirement))
