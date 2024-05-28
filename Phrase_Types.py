@@ -16,7 +16,8 @@ sample = {
   "sample 12": "10cp from (MATH132-MATH136 or DMTH137 or MATH1007-MATH1025 or (STAT150 or STAT1250) or (STAT170 or STAT1170) or (STAT171 or STAT1371) or (STAT175 or STAT1175))", #should be flagged as something else
   "sample 13":"30cp at 1000 level including COMP1000 ",
   "sample 14":"or COMP3100 or or or or or or ",
-  "sample 15":"30cp at 1000 level"
+  "sample 15":"30cp at 1000 level",
+  "sample 16":"MATH1010 or MATH1015 or MATH135 or MATH132"
 }
 
 # Define requirement types and the corresponding patterns

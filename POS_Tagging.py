@@ -29,6 +29,7 @@ custom_tags = {
   "unitField": r" [a-zA-Z]{4} ",
   "lbracket": r"\(",
   "rbracket": r"\)",  
+  "addmission": r"admission" #fix this later
   #"pre2020": r"[A-Z]{4}[0-9]{3}",
 }
 

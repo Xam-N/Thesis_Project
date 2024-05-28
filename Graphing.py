@@ -39,16 +39,17 @@ def createPreReqMatrix(data,desired):
           wordTagPre = requirement_word_tag(row['Pre-requisite'])# tag the pre-requisite words with a tag
           preReqAdjMatrix = parse_statement(preReqAdjMatrix, row['Academic Item'],wordTagPre)
 
-    print("Counter is equal to: ",counter)
+    #print("Counter is equal to: ",counter)
     return preReqAdjMatrix
 
 def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,weight):
   
-  print("This is the word list inputed for unit ", unit ,": ", wordTags)
-  print(requirementType)
+  #print("This is the word list inputed for unit ", unit ,": ", wordTags)
+  #print(requirementType)
   
   if "fake_credit_point" in requirementType: #make sure this is needed, it may/may not be i dont remember what it does lol
     
+    print("here")
     adjMatrix = addCreditBooleanEdges(adjMatrix,unit,wordTags,weight)
     
     
@@ -63,9 +64,8 @@ def addRequirementEdges(adjMatrix, unit, wordTags, requirementType,weight):
     
   return adjMatrix
 
-
 def addCreditBooleanEdges(adjMatrixFake,unit,wordTags,weight):
-  print("Never_Used")
+  #print("Never_Used")
   for index,word in enumerate(wordTags): # loop through each requirements words
     if word[1] == 'creditPoints':
       creditWeight = 10/(int(re.findall(r'\d+',word[0])[0])) # 10/number of credit points required
@@ -91,27 +91,27 @@ def addBooleanEdges(adjMatrixBool,unit,wordTags,weight):
           #i dont know what to do here
     
     if andCounter != 0 and orCounter != 0:
-      print("I dont know what to do")
+      #print("I dont know what to do")
       return adjMatrixBool
       
     elif andCounter != 0:
       weight = weight/(andCounter + 1)
       for requisite in requisiteList:
-        print("Adding Edge ",unit,"",requisiteList[0],"",weight)
+        #print("Adding Edge ",unit,"",requisiteList[0],"",weight)
         adjMatrixBool = addEdge(adjMatrixBool,unit,requisite,weight)
     
     elif orCounter != 0:
       if len(requisiteList) == 1:
-        print("Adding Edge ",unit,"",requisiteList[0],"",weight)
+        #print("Adding Edge ",unit,"",requisiteList[0],"",weight)
         adjMatrixBool = addEdge(adjMatrixBool,unit,requisiteList[0],weight)
       else:
         for requisite in requisiteList:
-          print("Adding Edge ",unit,"",requisiteList[0],"",weight)
+          #print("Adding Edge ",unit,"",requisiteList[0],"",weight)
           adjMatrixBool = addOrEdge(adjMatrixBool,unit,requisite,weight)
     
     elif andCounter == 0 and orCounter == 0:
       for requisite in requisiteList:
-        print("Adding Edge ",unit,"",requisiteList[0],"",weight)
+        #print("Adding Edge ",unit,"",requisiteList[0],"",weight)
         adjMatrixBool = addEdge(adjMatrixBool,unit,requisite,weight) 
     
     return adjMatrixBool
@@ -162,7 +162,7 @@ def addCreditPointEdges(adjMatrixCredit,unit,wordTags,weight):
   return adjMatrixCredit
    
 def addNode(adj_matrix: list, new_node):
-  print("Adding Node")  
+  #print("Adding Node")  
 
   if adj_matrix is None: #if matrix does not exist, then build it
       adj_matrix = np.array([['',new_node],[new_node,0]])
@@ -189,14 +189,21 @@ def addNode(adj_matrix: list, new_node):
  
 def addOrEdge(adj_matrixOrEdge,sourceNode,endNode,weight): #to do
   
-  print("Adding OR edge")
+  #print("Adding OR edge")
   newNode = sourceNode + "#"
+  
+  if sourceNode not in adj_matrixOrEdge:
+    return adj_matrixOrEdge
+  
+  if endNode not in adj_matrixOrEdge:
+    return adj_matrixOrEdge
+  
   
   while newNode in adj_matrixOrEdge:
     newNode = newNode + "1"
     
   if newNode not in adj_matrixOrEdge:
-    #print("Here")
+    ##print("Here")
     adj_matrixOrEdge = addEdge(adj_matrixOrEdge,sourceNode,newNode,weight)
   
   adj_matrixOrEdge = addEdge(adj_matrixOrEdge,newNode,endNode,1)
@@ -205,11 +212,11 @@ def addOrEdge(adj_matrixOrEdge,sourceNode,endNode,weight): #to do
 
 def addCreditPointNode(adjMatrixCreditNode,sourceNode,endNode,weight,creditWeight): #to do
   
-  print("Adding Credit edge node")
+  #print("Adding Credit edge node")
   newNode = sourceNode + "!"
   
   if newNode not in adjMatrixCreditNode:
-    print("Here")
+    #print("Here")
     adjMatrixCreditNode = addEdge(adjMatrixCreditNode,sourceNode,newNode,weight) #adds credit point node if it does not already exist
   
   adjMatrixCreditNode = addEdge(adjMatrixCreditNode,newNode,endNode,creditWeight)#adds the edge from the credit point node to the end node
@@ -219,20 +226,21 @@ def addCreditPointNode(adjMatrixCreditNode,sourceNode,endNode,weight,creditWeigh
 def addEdge(adjMatrixEdge, sourceNode, endNode, weight):
 
   if sourceNode not in adjMatrixEdge[0]:
-    print("No a relevant unit ", sourceNode)
+    pass
+    #print("No a relevant unit ", sourceNode)
   if endNode not in adjMatrixEdge[0]:
     if "!" in endNode or "#" in endNode:
       adjMatrixEdge = addNode(adjMatrixEdge,endNode)
     
   
   
-  #print("Adding_edge")
+  ##print("Adding_edge")
   if adjMatrixEdge is None:
-    #print("The fuck")
+    ##print("The fuck")
     adjMatrixEdge = addNode(adjMatrixEdge, None)
 
   srcIndex = np.where(adjMatrixEdge[0]==sourceNode)
-  #print(adj_matrix[0])
+  ##print(adj_matrix[0])
 
   destIndex = np.where(adjMatrixEdge[0]==endNode)
   
@@ -243,7 +251,7 @@ def addEdge(adjMatrixEdge, sourceNode, endNode, weight):
     return adjMatrixEdge
   
   adjMatrixEdge[destIndex[0],srcIndex[0]] = weight #assign a weight/edge between dest and src
-  print("Adding_edge")
+  #print("Adding_edge")
   
   return adjMatrixEdge
 
@@ -351,26 +359,32 @@ def parse_statement(adjMatrixParse,unit,statement):
       adjMatrixParse = addRequirementEdges(adjMatrixParse,unit,wordTag1,requirementTag1,0.5)
       adjMatrixParse = addRequirementEdges(adjMatrixParse,unit,wordTag2,requirementTag2,0.5)
       return adjMatrixParse
+    if unit == "AHIS3000":
+      words1 = "130cp at 1000 level or above"
+      wordTag1 = requirement_word_tag(words1)
+      requirementTag1 = requirement_tag(wordTag1)
+      words2 = "40cp from AHIS2130 or or AHIS2210 or AHIS2211 or AHIS2225 or AHIS2250 or AHIS2251 or AHIS2301 or AHIS2302"
+      wordTag2 = requirement_word_tag(words2)
+      requirementTag2 = requirement_tag(wordTag2)
+      adjMatrixParse = addRequirementEdges(adjMatrixParse,unit,wordTag1,requirementTag1,1)
+      adjMatrixParse = addRequirementEdges(adjMatrixParse,unit,wordTag2,requirementTag2,1)
+      return adjMatrixParse
     lbracketIndex = -1
     rbracketIndex = False
-    if unit == "MECH4005":
-      print()
     for index,word in enumerate(statement):
         if word[1] == "lbracket" or word[1] == "rbracket":
             if len(statement[lbracketIndex+1:index]) != 0:
               
               rbracketIndex = True
-              #print("These words used to call function, : ",statement[lbracketIndex+1:index])
-              #print(findWeight(statement,lbracketIndex+1,index))
+              ##print("These words used to call function, : ",statement[lbracketIndex+1:index])
+              ##print(findWeight(statement,lbracketIndex+1,index))
               wordTags = statement[lbracketIndex+1:index]
               weight = findWeight(statement,lbracketIndex+1,index)
               requirementTag = requirement_tag(wordTags)
-              if unit == "MECH4005":
-                print("Test: ",weight)
               #maybe somehow check if I should be added an or edge or not????
               #maybe check fi unit is a fake credity point, i might need to change this somehow if that is the case
               adjMatrixParse = addRequirementEdges(adjMatrixParse,unit,wordTags,requirementTag,weight)
-              #print(adjMatrix)
+              ##print(adjMatrix)
             lbracketIndex = index
         if word[0] == "including":
           wordTags = statement[lbracketIndex+1:index]
