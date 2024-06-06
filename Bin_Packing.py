@@ -351,15 +351,6 @@ def sessionSort(depSort, data):
     
   return result
   
-def garbage(depSort,possibleCo):
-      for unit,value in depSort.items():
-        for row in possibleCo:
-          for column in row:
-            if unit == column:
-              depSort[possibleCo[0][0]] == value
-              depSort = sorted(depSort.items(), key=lambda x:x[1], reverse=True)
-              depSort = dict(depSort)
-              return depSort
           
 def sortUnits(preReqAdjMatrix,coReqAdjMatrix,takeableUnits,desiredUnits,data):
 
@@ -387,7 +378,6 @@ def dependencyLengthGeneration(preReqAdjMatrix,coReqAdjMatrix,takeableUnits,desi
   depDict = sorted(depDict.items(), key=lambda x:x[1], reverse=True)
   depDict = dict(depDict)
   print(depDict)
-  #print("Huhh")
   return depDict
  
 def unitDependencyLength(matrix, unit, visited = None):

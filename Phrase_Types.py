@@ -52,9 +52,9 @@ def requirement_tag(descriptionTags):#returns the label of the requirement as lo
 
 
     
-for sampleName ,sampleRequirement in sample.items():
+#for sampleName ,sampleRequirement in sample.items():
     #requirement_word_tag(sampleRequirement)
-    words = requirement_word_tag(sampleRequirement)
-    print(requirement_tag(words))
+#    words = requirement_word_tag(sampleRequirement)
+#    print(requirement_tag(words))
 
 

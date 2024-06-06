@@ -1,0 +1,285 @@
+n Civil Engineering 
+[] Session 1 is : ['ENGG1000', 'COMP1000', 'MATH1010', 'PHYS1510']
+ Session 2 is : ['ENGG1050', 'CIVL1001', 'MATH1020']
+ Session 3 is : ['ENGG2050', 'CIVL2201', 'MATH2055', 'MECH2002']
+ Session 4 is : ['CIVL2101', 'CIVL2205', 'CIVL2301', 'ENGG2000']
+ Session 5 is : ['ENGG3050', 'CIVL3101', 'CIVL3201', 'CIVL3301']
+ Session 6 is : ['ENGG3000', 'CIVL3401', 'CIVL4090', 'CIVL3305']
+ Session 7 is : ['CIVL4301', 'ENGG4001', 'CIVL4201']
+ Session 8 is : ['CIVL4091', 'CIVL4401']
+ The not completed units are: 
+[]
+
+
+
+ Electrical Engineering 
+[] Session 1 is : ['ENGG1000', 'PHYS1510', 'MATH1010', 'COMP1000']
+ Session 2 is : ['ENGG1050', 'MATH1020', 'PHYS1520', 'ELEC2042']
+ Session 3 is : ['ELEC2040', 'ELEC2070', 'ENGG2050', 'MATH2055']
+ Session 4 is : ['ELEC2005', 'ENGG2000']
+ Session 5 is : ['ELCT3005', 'ELEC3024', 'ENGG3050', 'ELEC3042']
+ Session 6 is : ['ELCT3006', 'ENGG3000', 'ELEC3076', 'ELEC4092']
+ Session 7 is : ['ELCT4004', 'ENGG4001']
+ Session 8 is : ['ELCT4001', 'ELEC4250', 'ELEC4093', 'TELE3350']
+ The not completed units are: 
+[]
+
+
+ Mechanical Engineering 
+[] Session 1 is : ['ENGG1000', 'PHYS1510', 'COMP1000', 'MATH1010']
+ Session 2 is : ['ENGG1050', 'MECH1001', 'MATH1020']
+ Session 3 is : ['ENGG2050', 'MECH2003', 'MECH2004', 'MATH2055']
+ Session 4 is : ['ENGG2000', 'MECH2001', 'MECH2005']
+ Session 5 is : ['MECH3003', 'MECH3005', 'ENGG3050', 'MECH2002']
+ Session 6 is : ['ENGG3000', 'MECH3004', 'MECH3002']
+ Session 7 is : ['ENGG4001', 'MECH4005', 'MECH3001']
+ Session 8 is : ['MECH4002']
+ Session 9 is : ['MECH4001', 'MECH4092', 'MECH4093']
+ The not completed units are: 
+[]
+
+
+ Mechatronic Engineering 
+[] Session 1 is : ['ENGG1000', 'COMP1000', 'PHYS1510', 'MATH1010']
+ Session 2 is : ['ENGG1050', 'MATH1020', 'MECH1001', 'PHYS1520']
+ Session 3 is : ['ELEC2040', 'ELEC2070', 'ENGG2050', 'MATH2055']
+ Session 4 is : ['ENGG2000', 'MTRN2060', 'ELEC2005']
+ Session 5 is : ['ELEC3024', 'ENGG3050', 'MECH2003', 'ELEC3042']
+ Session 6 is : ['ENGG3000', 'MTRN3060', 'MTRN3026']
+ Session 7 is : ['ENGG4001', 'MTRN4066', 'MTRN4092']
+ Session 8 is : ['MTRN4062', 'MTRN4068', 'MTRN4093']
+ The not completed units are: 
+[]
+
+
+ Software Engineering 
+[] Session 1 is : ['ENGG1000', 'COMP1000', 'COMP1050', 'COMP1300']
+ Session 2 is : ['ENGG1050', 'COMP1010', 'COMP1350', 'MATH1007']
+ Session 3 is : ['ENGG2050', 'COMP2010', 'COMP2250', 'MATH2907']
+ Session 4 is : ['ENGG2000', 'COMP2000', 'COMP2100', 'COMP2050']
+ Session 5 is : ['ENGG3050', 'COMP3100', 'COMP3310']
+ Session 6 is : ['ENGG3000', 'COMP3000', 'COMP3010']
+ Session 7 is : ['ENGG4001', 'COMP4000', 'COMP4060']
+ Session 8 is : ['COMP4050', 'COMP4092', 'COMP4093']
+ The not completed units are: 
+[]
+
+
+ Economics 
+[] Session 1 is : ['ECON1020', 'ACCG1000', 'ACST1001', 'BUSA1000']
+ Session 2 is : ['COMP1000', 'ECON1021', 'ECON1031', 'STAT1250']
+ Session 3 is : ['ECON2003', 'ECON2004', 'ECON2044', 'ECON2050']
+ Session 4 is : ['ECON2015', 'ECON2035', 'ECON3034', 'ECON3060']
+ Session 5 is : ['ECON3018', 'ECON3036', 'ECON3056', 'ECON3081']
+ Session 6 is : ['ECON3000', 'ECON3059', 'ECON2041']
+ The not completed units are: 
+['ECON2032']
+
+
+ Medical Science, Anatomy 
+[] Session 1 is : ['ANAT1001', 'BIOL1210', 'BIOL1620', 'CHEM1001']
+ Session 2 is : ['BIOL1110', 'MATH1010', 'PHYS1210', 'STAT1170']
+ Session 3 is : ['ANAT2003', 'MATH1020', 'MEDI2300']
+ Session 4 is : ['MATH2010', 'BIOL2220', 'BIOL3661', 'HLTH2000']
+ Session 5 is : ['BIOL3210', 'MATH3900']
+ Session 6 is : ['MATH2020', 'MATH2110', 'MEDI2100', 'MEDI3100']
+ Session 7 is : ['MATH3902', 'MATH3905']
+ Session 8 is : ['MEDI3300']
+ The not completed units are: 
+[]
+
+
+ Medical Science, Genomics 
+[] Session 1 is : ['BIOL1210', 'BIOL1620', 'CHEM1001', 'STAT1170']
+ Session 2 is : ['BIOL1110', 'ANAT1001', 'BMOL2401', 'FOSE1025']
+ Session 3 is : ['BIOL2110', 'BMOL2201', 'PSYU1101']
+ Session 4 is : ['MEDI2201', 'PSYU1102', 'BIOL3661', 'HLTH2000']
+ Session 5 is : ['PSYU2234', 'PSYU2247', 'BIOL3120', 'BMOL3402']
+ Session 6 is : ['PSYU2236', 'PSYU3333']
+ Session 7 is : ['MEDI3200', 'PSYU3338']
+ Session 8 is : ['PSYU3352']
+ The not completed units are: 
+[]
+
+
+ Medical Science, Infectious Diseases 
+[] Session 1 is : ['BIOL1210', 'BIOL1310', 'BIOL1620', 'CHEM1001']
+ Session 2 is : ['BIOL1110', 'ANAT1001', 'BMOL2401', 'PSYU1102']
+ Session 3 is : ['PSYU1101', 'PSYU2247', 'STAT1170', 'BIOL2110']
+ Session 4 is : ['PSYU2236', 'BIOL2410', 'BIOL3661', 'HLTH2000']
+ Session 5 is : ['PSYU2234', 'BMOL3401', 'HLTH3302', 'PSYU3338']
+ Session 6 is : ['PSYU3333', 'PSYU3352', 'BIOL3130', 'HLTH2301']
+ The not completed units are: 
+[]
+
+
+ Medical Science, Chemistry 
+[] Session 1 is : ['CHEM1002', 'CHEM1001', 'STAT1170', 'ANAT1001']
+ Session 2 is : ['CHEM2201', 'BIOL1110', 'PSYU1102', 'HLTH2000']
+ Session 3 is : ['BIOL1210', 'BIOL1620', 'BMOL2201', 'CHEM2601']
+ Session 4 is : ['BIOL3661', 'CHEM3601', 'MEDI2004']
+ Session 5 is : ['CHEM3202', 'CHEM3801', 'PSYU1101', 'PSYU2247']
+ Session 6 is : ['PSYU2236']
+ Session 7 is : ['PSYU2234', 'PSYU3338']
+ Session 8 is : ['PSYU3333', 'PSYU3352']
+ The not completed units are: 
+[]
+
+
+
+ Medical Science, Neuroscience 
+[] Session 1 is : ['STAT1170', 'ANAT1001', 'BIOL1210', 'BIOL1620']
+ Session 2 is : ['ANAT2004', 'BIOL1110', 'CHEM1001', 'MEDI2301']
+ Session 3 is : ['COGS1000', 'PSYU1101', 'BIOL2230', 'MEDI2300']
+ Session 4 is : ['MEDI3300', 'MEDI3301', 'PSYU1102', 'PSYU2236']
+ Session 5 is : ['PSYU2234', 'PSYU2247', 'PSYU3338']
+ Session 6 is : ['PSYU3333', 'PSYU3344', 'BIOL3661', 'HLTH2000']
+ The not completed units are: 
+[]
+
+
+ Primary Education 
+[] Session 1 is : ['ARTS1000', 'EDUC1070', 'ENVS1017', 'GEOP1010']
+ Session 2 is : ['MMCC1020', 'MMCC1030', 'PHIL1037', 'SOCI1030']
+ Session 3 is : ['MMCC1012', 'EDUC2610', 'EDUC2620', 'GEOP2010']
+ Session 4 is : ['SPED1020', 'EDUC2580', 'GEOP2060']
+ Session 5 is : ['EDUC3620', 'EDUC3830', 'GEOP2050', 'GEOP3000']
+ Session 6 is : ['ARTS3500', 'EDUC3730', 'GEOP3020']
+ Session 7 is : ['GEOP3090']
+ The not completed units are: 
+['ARTS3005']
+
+
+ Arts, English 
+[] Session 1 is : ['ARTS1000', 'ENGL1001', 'MMCC1050', 'PHIL1031']
+ Session 2 is : ['ENGL1002', 'MMCC1110', 'PHIL1032', 'PHIL1037']
+ Session 3 is : ['ENGL2010', 'ENGL2030', 'MMCC2061', 'MMCC2110']
+ Session 4 is : ['ENGL2020', 'MMCC2011']
+ Session 5 is : ['AHIS3005', 'ENGL3020', 'ENGL3031', 'MMCC3110']
+ Session 6 is : ['ARTS3500', 'ENGL3010', 'MMCC3011', 'MMCC3020']
+ Session 7 is : ['PHIL2010', 'PHIL2026']
+ The not completed units are: 
+[]
+
+
+ Chiropractic 
+[] Session 1 is : ['ANAT1001', 'CHEM1001', 'BIOL1210', 'CHIR1101']
+ Session 2 is : ['CHIR1102', 'ANAT1002', 'ANAT2004', 'ANTH2002']
+ Session 3 is : ['CHIR2103', 'ANAT2003', 'BMOL2201', 'PHYS1210']
+ Session 4 is : ['CHIR2104', 'HLTH2110', 'BIOL2220', 'HLTH2301']
+ Session 5 is : ['CHIR3105', 'PSYU1101', 'BIOL2230', 'HLTH3140']
+ Session 6 is : ['CHIR3106', 'HLTH3303', 'CHIR3610', 'CHIR3610']
+ Session 7 is : ['HLTH3302']
+ The not completed units are: 
+[]
+
+
+ Cybersecurity 
+[] Session 1 is : ['COMP1000', 'COMP1300', 'STAT1170']
+ Session 2 is : ['MATH1007', 'COMP1010', 'COMP1350', 'COMP2200']
+ Session 3 is : ['COMP2300', 'COMP2110', 'COMP2250', 'COMP2310']
+ Session 4 is : ['COMP2100', 'COMP2320', 'COMP3300']
+ Session 5 is : ['COMP3100', 'COMP3310', 'COMP3320', 'COMP3850']
+ Session 6 is : ['ACCG3025']
+ Session 7 is : ['PICT2001']
+ The not completed units are: 
+[]
+
+
+ Information Technology AI 
+[] Session 1 is : ['COMP1000', 'STAT1170', 'COMP1150', 'COMP1300']
+ Session 2 is : ['COMP1010', 'COMP1350', 'COMP2200', 'MATH1007']
+ Session 3 is : ['COMP1750', 'COMP2110', 'COMP2250', 'COMP2291']
+ Session 4 is : ['COMP2100', 'COMP2300', 'COMP3410', 'MMCC2041']
+ Session 5 is : ['COMP2750', 'COMP3130', 'COMP3100', 'COMP3770']
+ Session 6 is : ['COMP3010', 'COMP3120', 'COMP3250', 'COMP3850']
+ The not completed units are: 
+[]
+
+
+ Science, Physics 
+[] Session 1 is : ['PHYS1010', 'FOSE1005', 'FOSE1015', 'FOSE1025']
+ Session 2 is : ['PHYS1020', 'STAT1170']
+ Session 3 is : ['PHYS2010']
+ Session 4 is : ['PHYS2020', 'PHYS2030']
+ Session 5 is : ['PHYS3010', 'PHYS3180']
+ Session 6 is : ['PHYS3140', 'FOSE3000', 'PHYS3810']
+ The not completed units are: 
+[]
+
+
+ Science, Maths 
+[] Session 1 is : ['MATH1010', 'MATH1015', 'CHEM1001', 'CHEM1002']
+ Session 2 is : ['MATH1020', 'MATH1025', 'CHEM2201', 'FOSE1005']
+ Session 3 is : ['MATH2010', 'CHEM2401', 'CHEM2601', 'CHEM3202']
+ Session 4 is : ['FOSE1015', 'FOSE1025', 'MATH2020', 'MATH2110']
+ Session 5 is : ['CHEM3801', 'MATH3902', 'MATH3905', 'STAT1170']
+ Session 6 is : ['CHEM3601', 'FOSE3000', 'MATH3599']
+ Session 7 is : ['MATH3900']
+ The not completed units are: 
+[]
+
+
+ Archaeology 
+[] Session 1 is : ['AHIS1250', 'AHIS1300']
+ Session 2 is : ['AHIS1200', 'AHIS1301']
+ Session 3 is : ['AHIS2251', 'AHIS2302']
+ Session 4 is : ['AHIS2211', 'AHIS2250', 'AHIS2301', 'AHIS3000']
+ Session 5 is : ['AHIS3241', 'AHIS3302']
+ Session 6 is : ['AHIS3001', 'AHIS3251', 'AHIS3306']
+ Session 7 is : ['AHIS3005']
+ The not completed units are: 
+[]
+
+
+ Ancient History 
+[] Session 1 is : ['AHIS1210', 'AHIS1250', 'AHIS1300']
+ Session 2 is : ['AHIS1200']
+ Session 3 is : ['AHIS2210', 'AHIS2225', 'AHIS2251']
+ Session 4 is : ['AHIS2130', 'AHIS2250', 'AHIS3000', 'AHIS3001']
+ Session 5 is : ['AHIS3201', 'AHIS3241']
+ Session 6 is : ['AHIS3005', 'AHIS3202', 'AHIS3251']
+ The not completed units are: 
+[]
+
+
+ Music 
+[] Session 1 is : ['MHIS1001', 'MMCC1012', 'MMCC1045']
+ Session 2 is : ['MHIS1002', 'MMCC1020', 'MMCC1030', 'MHIS2003']
+ Session 3 is : ['MHIS2000', 'MHIS2001', 'MMCC2000', 'MMCC2020']
+ Session 4 is : ['MHIS3027', 'MMCC2033', 'MMCC2063', 'MMCC2090']
+ Session 5 is : ['MHIS3000', 'MHIS3022', 'MMCC2057', 'MMCC3000']
+ Session 6 is : ['MMCC3032', 'MMCC3060', 'MMCC3160']
+ Session 7 is : ['MMCC3043', 'MMCC3130']
+ The not completed units are: 
+[]
+
+
+ Security 
+[] Session 1 is : ['PHIL1037', 'PICT1010', 'PICT1011']
+ Session 2 is : ['PICT1012', 'PICT1014']
+ Session 3 is : ['PICT2001', 'PICT2010']
+ Session 4 is : ['PICT2012', 'PICT2013', 'PICT2015']
+ Session 5 is : ['PICT3012', 'PICT3013', 'PICT3014', 'PICT3020']
+ Session 6 is : ['PICT3011', 'PICT3015']
+ The not completed units are: 
+[]
+
+
+ Social Science 
+[] Session 1 is : ['SSCI1000', 'POIR1010', 'SOCI1000']
+ Session 2 is : ['SSCI2020']
+ Session 3 is : ['GEOP2050', 'POIR2070', 'SSCI2010']
+ Session 4 is : ['SOCI2030', 'SOCI2040']
+ Session 5 is : ['ABST3040', 'POIR3060', 'SSCI3010', 'SSCI3090']
+ Session 6 is : ['GEOP3070']
+ Session 7 is : ['ANTH3023']
+ The not completed units are: 
+[]
+
+
+ Fake 
+[] Session 1 is : ['COMP4092']
+ The not completed units are: 
+['COMP4093']
+
