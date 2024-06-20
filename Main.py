@@ -27,7 +27,7 @@ def runner():
   informationTechnologyAI = ["COMP1000","COMP1300","COMP1350","COMP2250","COMP3850","COMP1010","COMP2200","COMP3410","COMP1150","COMP1750","COMP2110","COMP2750","MMCC2041","COMP3120","COMP3130","COMP3770","MATH1007","COMP2100","COMP2291","COMP2300","COMP3100","COMP3250","COMP3010","STAT1170"]
   sciencePhysicsMajor = ["FOSE3000","FOSE1005","FOSE1015","FOSE1025","STAT1170","PHYS3810","PHYS1010","PHYS1020","PHYS2010","PHYS2020","PHYS2030","PHYS3010","PHYS3140","PHYS3180"]
   scienceMathsMajor = ["FOSE3000","FOSE1005","FOSE1015","FOSE1025","STAT1170","MATH3599","MATH2010","MATH2020","MATH2110","MATH1010","MATH1015","MATH1020","MATH1025","MATH3900","MATH3902","MATH3905","CHEM1001","CHEM1002","CHEM2201","CHEM2401","CHEM2601","CHEM3202","CHEM3601","CHEM3801"]
-  archaeology = ["AHIS1300","AHIS1301","AHIS1200","AHIS1250","AHIS2211","AHIS2250","AHIS2251","AHIS2301","AHIS2302","AHIS3001","AHIS3005","AHIS3241","AHIS3251","AHIS3302","AHIS3306","AHIS3000"]
+  archaeology = ["AHIS1300","AHIS1301","AHIS1200","AHIS1250","AHIS2211","AHIS2250","AHIS2251","AHIS2301","AHIS2302","AHIS3001","AHIS3005","AHIS3241","AHIS3251","AHIS3302","AHIS3306","AHIS3000","AHIS1210","AHIS1250","AHIS3000","AHIS2210","AHIS2211","AHIS2225","AHIS3001","AHIS3201"]
   ancientHistory = ["AHIS1200","AHIS1210","AHIS1250","AHIS1300","AHIS2210","AHIS2130","AHIS2225","AHIS2250","AHIS2251","AHIS3001","AHIS3201","AHIS3202","AHIS3241","AHIS3251","AHIS3005","AHIS3000"]
   music = ["MMCC1012","MMCC1020","MMCC1030","MMCC1045","MMCC2000","MMCC2057","MMCC2090","MMCC2063","MMCC2020","MMCC2033","MMCC3130","MMCC3032","MMCC3000","MMCC3043","MMCC3060","MMCC3160","MHIS1001","MHIS1002","MHIS3000","MHIS2000","MHIS2001","MHIS2003","MHIS3022","MHIS3027"]
   securityStudies = ["PHIL1037","PICT1010","PICT1011","PICT1012","PICT1014","PICT2001","PICT2010","PICT2012","PICT2013","PICT2015","PICT3011","PICT3012","PICT3013","PICT3014","PICT3015","PICT3020"]
@@ -35,7 +35,7 @@ def runner():
   fake = ["COMP4092","COMP4093"]
   
   testingResult = ""
-  #testingResult = f"{testingResult}n Civil Engineering \n{tester(civilEng,data)}\n"
+  testingResult = f"{testingResult}n Civil Engineering \n{tester(civilEng,data)}\n"
   #testingResult = f"{testingResult}\n Electrical Engineering \n{tester(elecEng,data)}"
   #testingResult = f"{testingResult}\n Mechanical Engineering \n{tester(mechanicalEng,data)}"
   #testingResult = f"{testingResult}\n Mechatronic Engineering \n{tester(mechatronicEng,data)}"
@@ -58,7 +58,7 @@ def runner():
   #testingResult = f"{testingResult}\n Music \n{tester(music,data)}"
   #testingResult = f"{testingResult}\n Security \n{tester(securityStudies,data)}"
   #testingResult = f"{testingResult}\n Social Science \n{tester(socialScience,data)}"
-  testingResult = f"{testingResult}\n Fake \n{tester(fake,data)}"
+  #testingResult = f"{testingResult}\n Fake \n{tester(fake,data)}"
   #print("length_is:",len(mechanicalEng))
   return testingResult
 

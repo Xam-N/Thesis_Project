@@ -283,3 +283,27 @@ n Civil Engineering
  The not completed units are: 
 ['COMP4093']
 
+
+ Archaeology 
+[] Session 1 is : ['AHIS1210', 'AHIS1250', 'AHIS1300']
+ Session 2 is : ['AHIS1200', 'AHIS1301']
+ Session 3 is : ['AHIS2210', 'AHIS2225', 'AHIS2251', 'AHIS2302']
+ Session 4 is : ['AHIS2211', 'AHIS2250', 'AHIS2301', 'AHIS3000']
+ Session 5 is : ['AHIS3005', 'AHIS3201', 'AHIS3241', 'AHIS3302']
+ Session 6 is : ['AHIS3001', 'AHIS3251', 'AHIS3306']
+ The not completed units are: 
+[]
+
+n Civil Engineering 
+[] Session 1 is : ['ENGG1000', 'COMP1000', 'MATH1010', 'PHYS1510']
+ Session 2 is : ['ENGG1050', 'CIVL1001', 'MATH1020']
+ Session 3 is : ['ENGG2050', 'CIVL2201', 'MATH2055', 'MECH2002']
+ Session 4 is : ['CIVL2101', 'CIVL2205', 'CIVL2301', 'ENGG2000']
+ Session 5 is : ['ENGG3050', 'CIVL3101', 'CIVL3201', 'CIVL3301']
+ Session 6 is : ['ENGG3000', 'CIVL3401', 'CIVL4090', 'CIVL3305']
+ Session 7 is : ['CIVL4301', 'ENGG4001', 'CIVL4201']
+ Session 8 is : ['CIVL4091', 'CIVL4401']
+ The not completed units are: 
+[]
+
+
